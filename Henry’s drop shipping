@@ -1,0 +1,215 @@
+index.html !DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Henry's Dropshipping</title>
+
+<style>
+
+*{box-sizing:border-box}
+
+body{margin:0;background:#10131b;color:white;font-family:Arial,sans-serif}
+
+header{padding:22px;background:#191e2b;display:flex;justify-content:space-between;align-items:center}
+
+h1{font-size:22px;margin:0;color:#65e6a0}
+
+button{background:#65e6a0;color:#10131b;border:0;border-radius:9px;padding:11px 15px;font-weight:bold;cursor:pointer}
+
+nav{display:flex;gap:10px;padding:15px;overflow:auto}
+
+nav button{white-space:nowrap}
+
+main{padding:18px;max-width:950px;margin:auto}
+
+.hero{padding:30px 15px;background:#1b2634;border-radius:16px;margin-bottom:22px}
+
+.hero h2{font-size:30px;margin:5px 0}
+
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:14px}
+
+.card,.panel{background:#1b202c;border:1px solid #30394a;border-radius:14px;padding:15px}
+
+.product-icon{font-size:48px;text-align:center;padding:18px}
+
+.price{color:#65e6a0;font-size:20px;font-weight:bold}
+
+.panel{margin:15px 0}
+
+input{width:100%;padding:12px;margin:7px 0 15px;border-radius:8px;border:1px solid #596477;background:#10131b;color:white}
+
+.hidden{display:none}
+
+small{color:#aab4c5}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<strong>HENRY'S DROPSHIPPING</strong>
+
+<strong>🛒 Cart: <span id="cart">0</span></strong>
+
+</header>
+
+<nav>
+
+<button onclick="show('store')">Store</button>
+
+<button onclick="show('dashboard')">Financial Dashboard</button>
+
+</nav>
+
+<main>
+
+<section id="store">
+
+<div class="hero">
+
+<small>WELCOME TO THE STORE</small>
+
+<h2>Find Your Next Favorite.</h2>
+
+<p>Discover cool products at great prices.</p>
+
+</div>
+
+<h2>Featured Products</h2>
+
+<div class="products" id="products"></div>
+
+</section>
+
+<section id="dashboard" class="hidden">
+
+<div class="hero">
+
+<h2>Business Dashboard</h2>
+
+<p>Financial preview — all figures below are fictional sample data, not actual earnings.</p>
+
+</div>
+
+<div class="panel">
+
+<h3>Sample Revenue ($)</h3>
+
+<input id="revenue" type="number" value="2500" oninput="calculate()">
+
+<h3>Sample Spending ($)</h3>
+
+<input id="expenses" type="number" value="900" oninput="calculate()">
+
+<h3>Sample Profit</h3>
+
+<div class="price" id="profit">$1,600</div>
+
+<small>Profit = sample revenue minus sample spending.</small>
+
+</div>
+
+<div class="panel">
+
+<h3>Business Overview</h3>
+
+<p>Revenue: <strong id="revLabel">$2,500</strong></p>
+
+<p>Spending: <strong id="expLabel">$900</strong></p>
+
+<p>Profit: <strong id="profitLabel">$1,600</strong></p>
+
+</div>
+
+</section>
+
+</main>
+
+<script>
+
+const items=[
+
+{name:"Wireless Headphones",price:29.99,icon:"🎧"},
+
+{name:"LED Room Lights",price:19.99,icon:"💡"},
+
+{name:"Travel Water Bottle",price:14.99,icon:"🥤"},
+
+{name:"Gaming Mouse",price:24.99,icon:"🖱️"},
+
+{name:"Phone Stand",price:12.99,icon:"📱"},
+
+{name:"Backpack",price:34.99,icon:"🎒"}
+
+];
+
+let cart=0;
+
+document.getElementById("products").innerHTML=items.map((p,i)=>`
+
+<div class="card">
+
+<div class="product-icon">${p.icon}</div>
+
+<h3>${p.name}</h3>
+
+<div class="price">$${p.price.toFixed(2)}</div>
+
+<br><button onclick="addCart()">Add to Cart</button>
+
+</div>`).join("");
+
+function addCart(){
+
+cart++;
+
+document.getElementById("cart").textContent=cart;
+
+}
+
+function show(page){
+
+document.getElementById("store").classList.toggle("hidden",page!=="store");
+
+document.getElementById("dashboard").classList.toggle("hidden",page!=="dashboard");
+
+}
+
+function money(n){
+
+return "$"+n.toLocaleString("en-US",{maximumFractionDigits:2});
+
+}
+
+function calculate(){
+
+let r=Number(document.getElementById("revenue").value)||0;
+
+let e=Number(document.getElementById("expenses").value)||0;
+
+let p=r-e;
+
+document.getElementById("profit").textContent=money(p);
+
+document.getElementById("revLabel").textContent=money(r);
+
+document.getElementById("expLabel").textContent=money(e);
+
+document.getElementById("profitLabel").textContent=money(p);
+
+}
+
+</script>
+
+</body>
+
+</html>
